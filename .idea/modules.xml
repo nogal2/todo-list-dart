@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/packages/todo_list_dart_client/melos_todo_list_dart_client.iml" filepath="$PROJECT_DIR$/packages/todo_list_dart_client/melos_todo_list_dart_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/todo_list_dart_core/melos_todo_list_dart_core.iml" filepath="$PROJECT_DIR$/packages/todo_list_dart_core/melos_todo_list_dart_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/todo_list_dart_core_flutter/melos_todo_list_dart_core_flutter.iml" filepath="$PROJECT_DIR$/packages/todo_list_dart_core_flutter/melos_todo_list_dart_core_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/todo_list_dart_flutter/melos_todo_list_dart_flutter.iml" filepath="$PROJECT_DIR$/packages/todo_list_dart_flutter/melos_todo_list_dart_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/todo_list_dart_server/melos_todo_list_dart_server.iml" filepath="$PROJECT_DIR$/packages/todo_list_dart_server/melos_todo_list_dart_server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_todo_list_dart.iml" filepath="$PROJECT_DIR$/melos_todo_list_dart.iml" />
+    </modules>
+  </component>
+</project>

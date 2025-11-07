@@ -1,0 +1,44 @@
+services:
+  # Development services
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: todo_list_dart
+      POSTGRES_PASSWORD: "sklY1A9keRWv3V0aXkuZETZ8iIt0BmPE"
+    volumes:
+      - todo_list_dart_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "8091:6379"
+    command: redis-server --requirepass "QL1jYnSX4dOLIQUQ-W7hFJ2mdBf4Bh_P"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+  # Test services
+  postgres_test:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: todo_list_dart_test
+      POSTGRES_PASSWORD: "yW5fiSFL0c9j08TiIOlC8Y5woGjHTXz8"
+    volumes:
+      - todo_list_dart_test_data:/var/lib/postgresql/data
+
+  redis_test:
+    image: redis:6.2.6
+    ports:
+      - "9091:6379"
+    command: redis-server --requirepass "0I-T8EhKsohRPMVqzxrxXNnsh1q4rNRa"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+volumes:
+  todo_list_dart_data:
+  todo_list_dart_test_data:

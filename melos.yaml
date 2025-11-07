@@ -1,0 +1,94 @@
+name: todo_list_dart
+packages:
+  - packages/*
+
+command:
+  version:
+    includeCommitId: true
+  bootstrap:
+    hooks:
+      post: |
+        # 서버코드 및 자동 생성 코드 생성
+        cd packages/todo_list_dart_server && \
+        serverpod generate && \
+        cd ../..
+        flutter pub run melos run build_runner:build
+
+scripts:
+  clean:all:
+    run: |
+      # 모든 패키지 flutter clean
+      flutter pub run melos exec -- \
+      flutter clean
+    description: 모든 패키지에서 `flutter clean` 실행
+
+  clean:generated:
+    run: |
+      # 모든 *.g.dart, serverpod 생성 코드, migration 파일 제거
+      find . -name "*.g.dart" -delete
+      find . -name "*.migrations.dart" -delete
+      find ./packages/todo_list_dart_server/generated -type f -delete
+    description: 생성된 파일(g.dart, migration) 삭제
+
+  pubget:all:
+    run: |
+      flutter pub run melos exec -- \
+      dart pub get
+    description: 모든 패키지에서 `dart pub get` 실행
+
+  lint:all:
+    run: |
+      flutter pub run melos run lint:analyze && \
+      flutter pub run melos run lint:format
+    description: 정적분석(Analyze & Format) 전체 실행
+
+  lint:analyze:
+    run: |
+      flutter pub run melos exec --ignore="todo_list_dart_client" -- \
+      flutter analyze . --fatal-infos || dart analyze . --fatal-infos
+    description: flutter/dart 분석 전체 실행
+
+  lint:format:
+    run: |
+      flutter pub run melos exec --ignore="todo_list_dart_client" -- \
+      dart format . --output=none --set-exit-if-changed
+    description: 코드 포맷팅 전체 체크
+
+  build_runner:build:
+    run: |
+      echo "패키지 빌드 시작..." && \
+      flutter pub run melos exec --depends-on="build_runner" -- \
+      flutter pub run build_runner build --delete-conflicting-outputs
+    description: 모든 패키지 build_runner build 실행 (core_flutter부터)
+
+  build_runner:watch:
+    run: |
+      flutter pub run melos exec --depends-on="build_runner" -- \
+      flutter pub run build_runner watch --delete-conflicting-outputs
+    description: 모든 패키지 build_runner watch 실행
+
+  build:server:
+    run: |
+      cd packages/todo_list_dart_server && \
+      docker compose up --build --detach && \
+      dart bin/main.dart --apply-migrations
+    description: Serverpod 백엔드 서버 및 의존 서비스(Docker) 실행
+
+  build:client:
+    run: |
+      cd packages/todo_list_dart_server && \
+      serverpod generate
+    description: 서버 모델/엔드포인트 변경 반영 client 코드 자동 생성
+
+  build:flutter:
+    run: |
+      cd packages/todo_list_dart_flutter && \
+      flutter pub get && \
+      flutter run
+    description: Flutter 앱 실행 (서버가 떠 있어야 앱 정상 실행)
+
+  stop:server:
+    run: |
+      cd packages/todo_list_dart_server && \
+      docker compose stop
+    description: 백엔드 Docker 서비스 중단

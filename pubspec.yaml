@@ -1,0 +1,7 @@
+name: todo_list_dart
+
+environment:
+  sdk: 3.9.2
+
+dev_dependencies:
+  melos: ^6.3.2

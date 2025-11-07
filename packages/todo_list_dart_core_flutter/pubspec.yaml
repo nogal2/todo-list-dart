@@ -1,0 +1,19 @@
+name: todo_list_dart_core_flutter
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: 3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  serverpod_flutter: 2.9.2
+  todo_list_dart_client:
+    path: ../todo_list_dart_client
+  todo_list_dart_core:
+    path: ../todo_list_dart_core
+
+dev_dependencies:
+  flutter_lints: 6.0.0

@@ -1,0 +1,5 @@
+class: TodoEntity
+table: todo
+fields:
+  content: String
+  isCompleted: bool

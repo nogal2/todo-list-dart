@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: todo_list_dart_client,todo_list_dart_core
+dependency_overrides:
+  todo_list_dart_client:
+    path: ../todo_list_dart_client
+  todo_list_dart_core:
+    path: ../todo_list_dart_core
