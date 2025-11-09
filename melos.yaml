@@ -51,8 +51,12 @@ scripts:
   lint:format:
     run: |
       flutter pub run melos exec --ignore="todo_list_dart_client" -- \
-      dart format . --output=none --set-exit-if-changed
-    description: 코드 포맷팅 전체 체크
+        'if [ "$(basename "$PWD")" = "todo_list_dart_server" ]; then
+          find . -type f -name "*.dart" | grep -v "lib/src/generated" | grep -v "test/integration/test_tools/serverpod_test_tools.dart" | xargs dart format --output=none --set-exit-if-changed
+        else
+          dart format . --output=none --set-exit-if-changed
+        fi'
+    description: 코드 포맷팅 전체 체크. todo_list_dart_server 패키지의 생성된 파일은 제외합니다.
 
   build_runner:build:
     run: |
