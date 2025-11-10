@@ -5,7 +5,7 @@ part 'todo_model.freezed.dart';
 @freezed
 abstract class TodoModel with _$TodoModel {
   const factory TodoModel({
-    @Default(0) int id,
+    @Default(-1) int id,
     @Default('') String content,
     @Default(false) bool isCompleted,
   }) = _TodoModel;

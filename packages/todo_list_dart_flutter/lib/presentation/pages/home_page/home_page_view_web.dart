@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo_list_dart_core_flutter/todo_list_dart_core_flutter.dart';
 
 import 'home_page_presenter.dart';
 import 'home_page_view_model.dart';
@@ -27,17 +29,196 @@ class Body extends ConsumerWidget {
       homePagePresenterProvider,
     );
 
+    final HomePagePresenter presenter = ref.read(
+      homePagePresenterProvider.notifier,
+    );
+
     return asyncValue.when(
       data: (HomePageViewModel data) {
-        if (data.todos.isEmpty) {
-          return const Center(
-            child: Text('할 일이 없습니다'),
+        return Column(
+          children: <Widget>[
+            Expanded(
+              child: data.todos.isEmpty
+                  ? const Center(
+                      child: Text('할 일이 없습니다'),
+                    )
+                  : ListView.builder(
+                      itemCount: data.todos.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final TodoModel todo = data.todos[index];
+                        return TodoItem(
+                          todo: todo,
+                          onToggle: () => presenter.updateTodo(todo),
+                          onDelete: () => presenter.deleteTodo(todo),
+                        );
+                      },
+                    ),
+            ),
+            const TodoInputField(),
+          ],
+        );
+      },
+      error: (Object error, StackTrace stackTrace) => Column(
+        children: <Widget>[
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                  const SizedBox(height: 16),
+                  Text(
+                    '오류가 발생했습니다',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    error.toString(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const TodoInputField(),
+        ],
+      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+}
+
+class TodoItem extends StatelessWidget {
+  const TodoItem({
+    super.key,
+    required this.todo,
+    required this.onToggle,
+    required this.onDelete,
+  });
+
+  final TodoModel todo;
+  final VoidCallback onToggle;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Checkbox(
+        value: todo.isCompleted,
+        onChanged: (_) => onToggle(),
+      ),
+      title: Text(
+        todo.content,
+        style: todo.isCompleted
+            ? const TextStyle(
+                decoration: TextDecoration.lineThrough,
+                color: Colors.grey,
+              )
+            : null,
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete_outline),
+        onPressed: () async {
+          final bool? confirmed = await showDialog<bool>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('할 일 삭제'),
+              content: const Text('이 할 일을 삭제하시겠습니까?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('취소'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('삭제'),
+                ),
+              ],
+            ),
           );
-        }
-        return ListView.builder(
-          itemCount: data.todos.length,
-          itemBuilder: (BuildContext context, int index) =>
-              Text(data.todos[index].content),
+
+          if (confirmed ?? false) {
+            onDelete();
+          }
+        },
+      ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TodoModel>('todo', todo));
+    properties.add(ObjectFlagProperty<VoidCallback>.has('onToggle', onToggle));
+    properties.add(ObjectFlagProperty<VoidCallback>.has('onDelete', onDelete));
+  }
+}
+
+class TodoInputField extends ConsumerWidget {
+  const TodoInputField({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AsyncValue<HomePageViewModel> asyncValue = ref.watch(
+      homePagePresenterProvider,
+    );
+
+    final HomePagePresenter presenter = ref.read(
+      homePagePresenterProvider.notifier,
+    );
+
+    return asyncValue.when(
+      data: (HomePageViewModel viewModel) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 4,
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+          child: SafeArea(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: viewModel.todoInputController,
+                    decoration: const InputDecoration(
+                      hintText: '할 일을 입력하세요',
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                    ),
+                    onSubmitted: (String value) async {
+                      if (value.trim().isNotEmpty) {
+                        await presenter.addTodo(value);
+                        viewModel.todoInputController.clear();
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                FilledButton(
+                  onPressed: () async {
+                    if (viewModel.todoInputController.text.trim().isNotEmpty) {
+                      await presenter.addTodo(
+                        viewModel.todoInputController.text,
+                      );
+                      viewModel.todoInputController.clear();
+                    }
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ],
+            ),
+          ),
         );
       },
       error: (Object error, StackTrace stackTrace) => Text(error.toString()),

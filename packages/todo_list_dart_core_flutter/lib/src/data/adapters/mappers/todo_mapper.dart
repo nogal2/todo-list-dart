@@ -7,7 +7,7 @@ extension TodoEntityMapper on TodoEntity {
   ///
   /// If [id] is null, it defaults to 0.
   TodoModel get toModel => TodoModel(
-    id: id ?? 0,
+    id: id ?? -1,
     content: content,
     isCompleted: isCompleted,
   );
@@ -17,7 +17,7 @@ extension TodoEntityMapper on TodoEntity {
 extension TodoModelMapper on TodoModel {
   /// Converts this [TodoModel] to a [TodoEntity].
   TodoEntity get toEntity => TodoEntity(
-    id: id,
+    id: id == -1 ? null : id,
     content: content,
     isCompleted: isCompleted,
   );

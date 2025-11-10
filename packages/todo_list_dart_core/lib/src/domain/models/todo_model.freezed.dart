@@ -208,7 +208,7 @@ return $default(_that.id,_that.content,_that.isCompleted);case _:
 
 
 class _TodoModel implements TodoModel {
-  const _TodoModel({this.id = 0, this.content = '', this.isCompleted = false});
+  const _TodoModel({this.id = -1, this.content = '', this.isCompleted = false});
   
 
 @override@JsonKey() final  int id;
