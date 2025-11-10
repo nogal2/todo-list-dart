@@ -33,7 +33,7 @@ final class HomePagePresenterProvider
   HomePagePresenter create() => HomePagePresenter();
 }
 
-String _$homePagePresenterHash() => r'27464ef1ffa3324ebb8d78527413e625413b8a03';
+String _$homePagePresenterHash() => r'067a707622f158123c826f8f171de7deee5a6cfc';
 
 abstract class _$HomePagePresenter extends $AsyncNotifier<HomePageViewModel> {
   FutureOr<HomePageViewModel> build();

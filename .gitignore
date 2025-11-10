@@ -1,3 +1,5 @@
+# REF: https://github.com/flutter/flutter/blob/stable/packages/flutter_tools/templates/app_shared/.gitignore.tmpl
+
 # Miscellaneous
 *.class
 *.log
@@ -8,6 +10,7 @@
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -18,7 +21,7 @@
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -30,13 +33,29 @@
 .pub-cache/
 .pub/
 /build/
+packages/*/build/
 
-# Web related
-lib/generated_plugin_registrant.dart
-
-# Symbolization related
+# Symbolication related
 app.*.symbols
 
 # Obfuscation related
 app.*.map.json
 
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Dart Build Runner Generated files
+**/*.freezed.dart
+**/*.g.dart
+
+# Flutter Generated files
+**/generated_plugin*
+**/GeneratedPlugin*
+
+# Documentation plans
+docs/plans/pr-body.md
+
+# FVM Version Cache
+.fvm/

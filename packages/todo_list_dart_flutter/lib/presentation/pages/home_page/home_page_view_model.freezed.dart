@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomePageViewModel {
 
- List<TodoModel> get todos;
+ List<TodoModel> get todos; TextEditingController get todoInputController;
 /// Create a copy of HomePageViewModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $HomePageViewModelCopyWith<HomePageViewModel> get copyWith => _$HomePageViewMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomePageViewModel&&const DeepCollectionEquality().equals(other.todos, todos));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomePageViewModel&&const DeepCollectionEquality().equals(other.todos, todos)&&(identical(other.todoInputController, todoInputController) || other.todoInputController == todoInputController));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(todos));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(todos),todoInputController);
 
 @override
 String toString() {
-  return 'HomePageViewModel(todos: $todos)';
+  return 'HomePageViewModel(todos: $todos, todoInputController: $todoInputController)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $HomePageViewModelCopyWith<$Res>  {
   factory $HomePageViewModelCopyWith(HomePageViewModel value, $Res Function(HomePageViewModel) _then) = _$HomePageViewModelCopyWithImpl;
 @useResult
 $Res call({
- List<TodoModel> todos
+ List<TodoModel> todos, TextEditingController todoInputController
 });
 
 
@@ -62,10 +62,11 @@ class _$HomePageViewModelCopyWithImpl<$Res>
 
 /// Create a copy of HomePageViewModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? todos = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? todos = null,Object? todoInputController = null,}) {
   return _then(_self.copyWith(
 todos: null == todos ? _self.todos : todos // ignore: cast_nullable_to_non_nullable
-as List<TodoModel>,
+as List<TodoModel>,todoInputController: null == todoInputController ? _self.todoInputController : todoInputController // ignore: cast_nullable_to_non_nullable
+as TextEditingController,
   ));
 }
 
@@ -150,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<TodoModel> todos)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<TodoModel> todos,  TextEditingController todoInputController)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomePageViewModel() when $default != null:
-return $default(_that.todos);case _:
+return $default(_that.todos,_that.todoInputController);case _:
   return orElse();
 
 }
@@ -171,10 +172,10 @@ return $default(_that.todos);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<TodoModel> todos)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<TodoModel> todos,  TextEditingController todoInputController)  $default,) {final _that = this;
 switch (_that) {
 case _HomePageViewModel():
-return $default(_that.todos);case _:
+return $default(_that.todos,_that.todoInputController);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +192,10 @@ return $default(_that.todos);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<TodoModel> todos)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<TodoModel> todos,  TextEditingController todoInputController)?  $default,) {final _that = this;
 switch (_that) {
 case _HomePageViewModel() when $default != null:
-return $default(_that.todos);case _:
+return $default(_that.todos,_that.todoInputController);case _:
   return null;
 
 }
@@ -206,7 +207,7 @@ return $default(_that.todos);case _:
 
 
 class _HomePageViewModel implements HomePageViewModel {
-  const _HomePageViewModel({final  List<TodoModel> todos = const <TodoModel>[]}): _todos = todos;
+  const _HomePageViewModel({final  List<TodoModel> todos = const <TodoModel>[], required this.todoInputController}): _todos = todos;
   
 
  final  List<TodoModel> _todos;
@@ -216,6 +217,7 @@ class _HomePageViewModel implements HomePageViewModel {
   return EqualUnmodifiableListView(_todos);
 }
 
+@override final  TextEditingController todoInputController;
 
 /// Create a copy of HomePageViewModel
 /// with the given fields replaced by the non-null parameter values.
@@ -227,16 +229,16 @@ _$HomePageViewModelCopyWith<_HomePageViewModel> get copyWith => __$HomePageViewM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomePageViewModel&&const DeepCollectionEquality().equals(other._todos, _todos));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomePageViewModel&&const DeepCollectionEquality().equals(other._todos, _todos)&&(identical(other.todoInputController, todoInputController) || other.todoInputController == todoInputController));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_todos));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_todos),todoInputController);
 
 @override
 String toString() {
-  return 'HomePageViewModel(todos: $todos)';
+  return 'HomePageViewModel(todos: $todos, todoInputController: $todoInputController)';
 }
 
 
@@ -247,7 +249,7 @@ abstract mixin class _$HomePageViewModelCopyWith<$Res> implements $HomePageViewM
   factory _$HomePageViewModelCopyWith(_HomePageViewModel value, $Res Function(_HomePageViewModel) _then) = __$HomePageViewModelCopyWithImpl;
 @override @useResult
 $Res call({
- List<TodoModel> todos
+ List<TodoModel> todos, TextEditingController todoInputController
 });
 
 
@@ -264,10 +266,11 @@ class __$HomePageViewModelCopyWithImpl<$Res>
 
 /// Create a copy of HomePageViewModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? todos = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? todos = null,Object? todoInputController = null,}) {
   return _then(_HomePageViewModel(
 todos: null == todos ? _self._todos : todos // ignore: cast_nullable_to_non_nullable
-as List<TodoModel>,
+as List<TodoModel>,todoInputController: null == todoInputController ? _self.todoInputController : todoInputController // ignore: cast_nullable_to_non_nullable
+as TextEditingController,
   ));
 }
 
