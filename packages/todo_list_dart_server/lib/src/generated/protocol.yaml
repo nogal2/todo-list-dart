@@ -3,5 +3,3 @@ todo:
   - getTodos:
   - updateTodo:
   - deleteTodo:
-greeting:
-  - hello:
