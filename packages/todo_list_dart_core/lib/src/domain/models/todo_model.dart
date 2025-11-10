@@ -3,17 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'todo_model.freezed.dart';
 
 @freezed
-class TodoModel with _$TodoModel {
-  TodoModel({
-    required this.id,
-    required this.content,
-    required this.isCompleted,
-  });
-
-  @override
-  final int id;
-  @override
-  final String content;
-  @override
-  final bool isCompleted;
+abstract class TodoModel with _$TodoModel {
+  const factory TodoModel({
+    @Default(0) int id,
+    @Default('') String content,
+    @Default(false) bool isCompleted,
+  }) = _TodoModel;
 }
