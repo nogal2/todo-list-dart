@@ -12,11 +12,9 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'entities/todo_entity.dart' as _i3;
-import 'greeting.dart' as _i4;
 import 'package:todo_list_dart_server/src/generated/entities/todo_entity.dart'
-    as _i5;
+    as _i4;
 export 'entities/todo_entity.dart';
-export 'greeting.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -82,17 +80,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i3.TodoEntity) {
       return _i3.TodoEntity.fromJson(data) as T;
     }
-    if (t == _i4.Greeting) {
-      return _i4.Greeting.fromJson(data) as T;
-    }
     if (t == _i1.getType<_i3.TodoEntity?>()) {
       return (data != null ? _i3.TodoEntity.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i4.Greeting?>()) {
-      return (data != null ? _i4.Greeting.fromJson(data) : null) as T;
-    }
-    if (t == List<_i5.TodoEntity>) {
-      return (data as List).map((e) => deserialize<_i5.TodoEntity>(e)).toList()
+    if (t == List<_i4.TodoEntity>) {
+      return (data as List).map((e) => deserialize<_i4.TodoEntity>(e)).toList()
           as T;
     }
     try {
@@ -107,9 +99,6 @@ class Protocol extends _i1.SerializationManagerServer {
     if (className != null) return className;
     if (data is _i3.TodoEntity) {
       return 'TodoEntity';
-    }
-    if (data is _i4.Greeting) {
-      return 'Greeting';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -126,9 +115,6 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (dataClassName == 'TodoEntity') {
       return deserialize<_i3.TodoEntity>(data['data']);
-    }
-    if (dataClassName == 'Greeting') {
-      return deserialize<_i4.Greeting>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);

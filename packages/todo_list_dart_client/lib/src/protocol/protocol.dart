@@ -11,11 +11,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'entities/todo_entity.dart' as _i2;
-import 'greeting.dart' as _i3;
 import 'package:todo_list_dart_client/src/protocol/entities/todo_entity.dart'
-    as _i4;
+    as _i3;
 export 'entities/todo_entity.dart';
-export 'greeting.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -34,17 +32,11 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i2.TodoEntity) {
       return _i2.TodoEntity.fromJson(data) as T;
     }
-    if (t == _i3.Greeting) {
-      return _i3.Greeting.fromJson(data) as T;
-    }
     if (t == _i1.getType<_i2.TodoEntity?>()) {
       return (data != null ? _i2.TodoEntity.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i3.Greeting?>()) {
-      return (data != null ? _i3.Greeting.fromJson(data) : null) as T;
-    }
-    if (t == List<_i4.TodoEntity>) {
-      return (data as List).map((e) => deserialize<_i4.TodoEntity>(e)).toList()
+    if (t == List<_i3.TodoEntity>) {
+      return (data as List).map((e) => deserialize<_i3.TodoEntity>(e)).toList()
           as T;
     }
     return super.deserialize<T>(data, t);
@@ -57,9 +49,6 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i2.TodoEntity) {
       return 'TodoEntity';
     }
-    if (data is _i3.Greeting) {
-      return 'Greeting';
-    }
     return null;
   }
 
@@ -71,9 +60,6 @@ class Protocol extends _i1.SerializationManager {
     }
     if (dataClassName == 'TodoEntity') {
       return deserialize<_i2.TodoEntity>(data['data']);
-    }
-    if (dataClassName == 'Greeting') {
-      return deserialize<_i3.Greeting>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

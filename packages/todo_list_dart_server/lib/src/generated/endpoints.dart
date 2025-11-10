@@ -11,9 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/todo_endpoint.dart' as _i2;
-import '../greeting_endpoint.dart' as _i3;
 import 'package:todo_list_dart_server/src/generated/entities/todo_entity.dart'
-    as _i4;
+    as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -24,13 +23,7 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'todo',
           null,
-        ),
-      'greeting': _i3.GreetingEndpoint()
-        ..initialize(
-          server,
-          'greeting',
-          null,
-        ),
+        )
     };
     connectors['todo'] = _i1.EndpointConnector(
       name: 'todo',
@@ -41,7 +34,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'todo': _i1.ParameterDescription(
               name: 'todo',
-              type: _i1.getType<_i4.TodoEntity>(),
+              type: _i1.getType<_i3.TodoEntity>(),
               nullable: false,
             )
           },
@@ -68,7 +61,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'todo': _i1.ParameterDescription(
               name: 'todo',
-              type: _i1.getType<_i4.TodoEntity>(),
+              type: _i1.getType<_i3.TodoEntity>(),
               nullable: false,
             )
           },
@@ -86,7 +79,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'todo': _i1.ParameterDescription(
               name: 'todo',
-              type: _i1.getType<_i4.TodoEntity>(),
+              type: _i1.getType<_i3.TodoEntity>(),
               nullable: false,
             )
           },
@@ -99,30 +92,6 @@ class Endpoints extends _i1.EndpointDispatch {
             params['todo'],
           ),
         ),
-      },
-    );
-    connectors['greeting'] = _i1.EndpointConnector(
-      name: 'greeting',
-      endpoint: endpoints['greeting']!,
-      methodConnectors: {
-        'hello': _i1.MethodConnector(
-          name: 'hello',
-          params: {
-            'name': _i1.ParameterDescription(
-              name: 'name',
-              type: _i1.getType<String>(),
-              nullable: false,
-            )
-          },
-          call: (
-            _i1.Session session,
-            Map<String, dynamic> params,
-          ) async =>
-              (endpoints['greeting'] as _i3.GreetingEndpoint).hello(
-            session,
-            params['name'],
-          ),
-        )
       },
     );
   }
