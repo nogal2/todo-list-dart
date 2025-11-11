@@ -49,6 +49,7 @@ dart pub global activate melos
 ### 5.1 패키지 의존성 설치
 
 ```bash
+flutter pub get
 melos bootstrap
 ```
 

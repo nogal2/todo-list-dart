@@ -66,4 +66,11 @@ class HomePagePresenter extends _$HomePagePresenter {
       return viewModel.copyWith(todos: todos);
     });
   }
+
+  Future<void> handleOnSubmit(String value) async {
+    if (value.trim().isNotEmpty) {
+      await addTodo(value);
+      state.value!.todoInputController.clear();
+    }
+  }
 }
