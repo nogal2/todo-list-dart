@@ -6,6 +6,10 @@
 - 단일 저장소에서 서버, Flutter 앱, 공유 도메인, 클라이언트 SDK를 Melos로 관리합니다.
 - 요구사항과 UX 세부 내용은 `PRD.md`에서 확인할 수 있습니다.
 
+<div align="center">
+  <img src="./resource/sample.gif" alt="Demo" width="500" />
+</div>
+
 ## 2. 주요 기능 요약
 
 | 영역        | 설명                                                                                                                                                         |
