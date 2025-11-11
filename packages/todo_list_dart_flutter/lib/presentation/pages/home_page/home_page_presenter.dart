@@ -19,7 +19,7 @@ class HomePagePresenter extends _$HomePagePresenter {
     );
   }
 
-  Future<void> addTodo(String content) async {
+  Future<void> handleAddTodo(String content) async {
     if (!state.hasValue && content.trim().isEmpty) {
       return;
     }
@@ -36,7 +36,7 @@ class HomePagePresenter extends _$HomePagePresenter {
     });
   }
 
-  Future<void> updateTodo(TodoModel todo) async {
+  Future<void> handleUpdateTodo(TodoModel todo) async {
     if (!state.hasValue) {
       return;
     }
@@ -53,7 +53,7 @@ class HomePagePresenter extends _$HomePagePresenter {
     });
   }
 
-  Future<void> deleteTodo(TodoModel todo) async {
+  Future<void> handleDeleteTodo(TodoModel todo) async {
     if (!state.hasValue) {
       return;
     }
@@ -69,7 +69,7 @@ class HomePagePresenter extends _$HomePagePresenter {
 
   Future<void> handleOnSubmit(String value) async {
     if (value.trim().isNotEmpty) {
-      await addTodo(value);
+      await handleAddTodo(value);
       state.value!.todoInputController.clear();
     }
   }

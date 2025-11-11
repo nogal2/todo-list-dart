@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo_list_dart_core_flutter/todo_list_dart_core_flutter.dart';
 
@@ -48,8 +49,8 @@ class Body extends ConsumerWidget {
                         final TodoModel todo = data.todos[index];
                         return TodoItem(
                           todo: todo,
-                          onToggle: () => presenter.updateTodo(todo),
-                          onDelete: () => presenter.deleteTodo(todo),
+                          onToggle: () => presenter.handleUpdateTodo(todo),
+                          onDelete: () => presenter.handleDeleteTodo(todo),
                         );
                       },
                     ),
@@ -127,11 +128,11 @@ class TodoItem extends StatelessWidget {
               content: const Text('이 할 일을 삭제하시겠습니까?'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
+                  onPressed: () => context.pop(false),
                   child: const Text('취소'),
                 ),
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
+                  onPressed: () => context.pop(true),
                   child: const Text('삭제'),
                 ),
               ],
@@ -174,13 +175,6 @@ class TodoInputField extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 4,
-                offset: const Offset(0, -2),
-              ),
-            ],
           ),
           child: SafeArea(
             child: Row(
@@ -196,24 +190,14 @@ class TodoInputField extends ConsumerWidget {
                         vertical: 12,
                       ),
                     ),
-                    onSubmitted: (String value) async {
-                      if (value.trim().isNotEmpty) {
-                        await presenter.addTodo(value);
-                        viewModel.todoInputController.clear();
-                      }
-                    },
+                    onSubmitted: presenter.handleOnSubmit,
                   ),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(
-                  onPressed: () async {
-                    if (viewModel.todoInputController.text.trim().isNotEmpty) {
-                      await presenter.addTodo(
-                        viewModel.todoInputController.text,
-                      );
-                      viewModel.todoInputController.clear();
-                    }
-                  },
+                  onPressed: () => presenter.handleOnSubmit(
+                    viewModel.todoInputController.text,
+                  ),
                   child: const Icon(Icons.add),
                 ),
               ],

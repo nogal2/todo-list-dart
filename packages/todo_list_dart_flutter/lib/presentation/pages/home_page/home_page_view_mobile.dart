@@ -49,8 +49,8 @@ class Body extends ConsumerWidget {
                         final TodoModel todo = data.todos[index];
                         return TodoItem(
                           todo: todo,
-                          onToggle: () => presenter.updateTodo(todo),
-                          onDelete: () => presenter.deleteTodo(todo),
+                          onToggle: () => presenter.handleUpdateTodo(todo),
+                          onDelete: () => presenter.handleDeleteTodo(todo),
                         );
                       },
                     ),
